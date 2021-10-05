@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/style.css">
+
+</head>
+<body>
+<header><h1>Weather Dashboard</h1></header>
+    <main>
+    <div class="search-container">
+        <h2>Search for a City:</h2> 
+            <input id="searchBar" type="text" placeholder="Type a city name">
+            <button id="search-button" onclick="validCity()">Search</button>
+            <div id="buttons"></div>
+                    <!--<button id="seattle-button"><li>Seattle</li></button>
+                    <button id="austin"><li>Austin</li></button>
+                    <button id="chicago"><li>Chicago</li></button>
+                    <button id="new-york"><li>New York</li></button>
+                    <button id="orlando"><li>Orlando</li></button>
+                    <button id="san-francisco"><li>San Francisco</li></button>
+                    <button id="denver"><li>Denver</li></button>
+                    <button id="atlanta"><li>Atlanta</li></button>-->
+    </div>
+    
+    <div class="forecast-container">
+    <div class="current-city-container">
+        <subheader><h2 class="current-city"></h2><h2 id="current-date"></h2><span class="current-icon"></span></subheader>
+        <ul class="current-weather-details">
+            <li>Temp: <span class="current-temp"></span>°F</li>
+            <li>Wind: <span class="current-wind"></span> MPH</li>
+            <li>Humidity: <span class="current-humidity"></span> %</li>
+            <li>UV Index: <span class="current-uv-index"></span></li>
+
+        </ul>
+    </div>
+
+        <h4>5-Day Forecast</h4>
+        <div class="five-day-forecast-container">
+        <card class="day-card" id="1">
+            <h4 class="date0"></h4>
+                <ul class="day0"></ul>
+                    <li class="icon0"></li>
+                    <li>Temp: <span class="temp0"></span>°F
+                    </li>
+                    <li>Wind: <span class="wind0"></span>MPH</li>
+                    <li>Humidity: <span class="humidity0"></span>%</li>
+        </card>
+        <card class="day-card" id="2">
+            <h4 class="date1"></h4>
+                <ul class="day1"></ul>
+                    <li class="icon1"></li>
+                    <li>Temp: <span class="temp1"></span>°F</li>
+                    <li>Wind: <span class="wind1"></span>MPH</li>
+                    <li>Humidity: <span class="humidity1"></span>%</li>
+        </card>
+        <card class="day-card" id="3">
+            <h4 class="date2"></h4>
+                <ul class="day2"></ul>
+                    <li class="icon2"></li>
+                    <li>Temp: <span class="temp2"></span>°F</li>
+                    <li>Wind: <span class="wind2"></span>MPH</li>
+                    <li>Humidity: <span class="humidity2"></span>%</li>
+        </card>
+        <card class="day-card" id="4">
+            <h4 class="date3"></h4>
+                <ul class="day3"></ul>
+                    <li class="icon3"></li>
+                    <li>Temp: <span class="temp3"></span>°F</li>
+                    <li>Wind: <span class="wind3"></span>MPH</li>
+                    <li>Humidity: <span class="humidity3"></span>%</li>
+        </card>
+        <card class="day-card" id="5">
+            <h4 class="date4"></h4>
+                <ul class="day4"></ul>
+                    <li class="icon4"></li>
+                    <li>Temp: <span class="temp4"></span>°F</li>
+                    <li>Wind: <span class="wind4"></span>MPH</li>
+                    <li>Humidity: <span class="humidity4"></span>%</li>
+        </card>
+    </div>
+    </div>
+    </main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="assets/script.js"></script>
+</body>
+</html>
