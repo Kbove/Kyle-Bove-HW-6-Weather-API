@@ -2,7 +2,7 @@
 //THEN I am presented with cirrent and future condition for that city and that city is added to the search history 
 const searchBtn = document.getElementById('search-button')
 const APIkey = '211ebe8992749f44e55ed545dc0cf9a8';
-
+//5 day forecast api = https://api.openweathermap.org/data/2.5/forecast?q=miami&appid=d2ee20e2eb15e888df5d53206e353c5d
 //var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + APIkey;
 const seattle = 'https://api.openweathermap.org/data/2.5/weather?q=seattle&appid=211ebe8992749f44e55ed545dc0cf9a8';
 const seattleBtn = document.getElementById('seattle-button');
@@ -27,123 +27,93 @@ var latitude;
 var longitude;
 var searchHistory = []
 
-getHistory();
+//getHistory();
+
+var storedWeather = JSON.parse(localStorage.getItem("weather")) || [];
+var apiKey = '211ebe8992749f44e55ed545dc0cf9a8';
 
 function validCity() {
-    userInput = document.getElementById('searchBar').value;
-    var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + userInput + "&appid=d2ee20e2eb15e888df5d53206e353c5d";
+
+  var searchInput = $('#searchBar').val();
+
+  var weatherSearch = 'https://api.openweathermap.org/data/2.5/weather?q='+searchInput+'&appid='+apiKey;
+  var forecastSearch = 'https://api.openweathermap.org/data/2.5/forecast?q='+searchInput+'&appid='+apiKey;
   
-    fetch(url)
-      .then(function (response) {
-        if(response.ok) {
-            userInput = city
-            getLatLong();
-            saveSearch();
-            return response.json();
-          } else if (response === 404){
-            return Promise.reject('error 404')
-          } else {
-            return Promise.reject('some other error: ' + response.status)
-        }}
-      )}
-        
-function getLatLong() {
-    city = document.getElementById('searchBar').value;
-    checkURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=211ebe8992749f44e55ed545dc0cf9a8&units=imperial';
+  $.ajax({
+    url: weatherSearch,
+    method: 'GET'
+  }).then(function(response){
+    console.log(response);
+    let tempWeather = response;
+    let city = tempWeather.name;
+    let latitude = tempWeather.coord.lat;
+    let longitude = tempWeather.coord.lon;
+    let wind_speed = tempWeather.wind.speed;
+    let humidity = tempWeather.main.humidity;
+    let temperature = tempWeather.main.temperature; 
+    var oneCallSearch = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + tempWeather.coord.lat + '&lon=' + tempWeather.coord.lon + '&units=imperial&appid=211ebe8992749f44e55ed545dc0cf9a8&units=imperial'
 
-    fetch(checkURL)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            latitude = data.coord.lat;
-            longitude = data.coord.lon;
-            city = data.name;
-            temp = data.main.temp;
-            wind = data.wind.speed;
-            humidity = data.main.humidity;
 
-            getApi();
-            
-        })
-} 
+    $.ajax({
+      url: forecastSearch,
+      method: 'GET'
+    }).then(function(response){
+      console.log("forecast",response);
+        var callDay1 = response.list[7].dt_txt;
+        var callDay2 = response.list[15].dt_txt;
+        var callDay3 = response.list[23].dt_txt;
+        var callDay4 = response.list[31].dt_txt;
+        var callDay5 = response.list[39].dt_txt;
+        console.log('five day',callDay3);
+      $.ajax({
+        url: oneCallSearch,
+        method: 'GET'
+      }).then(function(response){
+        console.log("onecall",response)
+        let timezone = response.timezone; 
+        
+        for (i = 0; i < 5; i++) {
+          /*var nextDay = moment("MM-DD-YYYY").add(i, 'd');
+          console.log("looking for the next day",nextDay)
+          var fiveDay = document.querySelector('.date'+i)
+          console.log(fiveDay);
+          fiveDay.textContent = nextDay;*/
+          
+          var nextTemp = data.daily[i].temp.day
+          console.log(nextTemp);
+          var fiveTemp = document.querySelector('.temp'+i)
+          console.log(fiveTemp)
+          fiveTemp.textContent = nextTemp
+          
+          var nextWind = data.daily[i].wind_speed
+          console.log(nextWind)
+          var fiveWind = document.querySelector('.wind'+i)
+          console.log(fiveWind)
+          fiveWind.textContent = nextWind
+          
+          var nextHumidity = data.daily[i].humidity
+          console.log(nextHumidity)
+          var fiveHumidity = document.querySelector('.humidity'+i)
+          console.log(fiveHumidity)
+          fiveHumidity.textContent = nextHumidity
+        
 
-function getApi() {
-   var queryURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=imperial&appid=211ebe8992749f44e55ed545dc0cf9a8&units=imperial'
-   fetch(queryURL)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-            var date = moment().format("MM/DD/YYYY");
-            currentCity.textContent = city + " " + date;
-            currentTemp.textContent = temp;
-            currentWind.textContent = wind;
-            currentHumidity.textContent = humidity;
-            currentUV.textContent = data.current.uvi;
+        /*let weatherObj = {
+          'location': city,
+          'date': 
+        }*/
 
-            console.log(data)
-     
-      for (i = 0; i < 5; i++) {
-        var nextDay = moment(i+1,'d').format('MM/DD/YYYY');
-        console.log(nextDay)
-        var fiveDay = document.querySelector('.date'+i)
-        console.log(fiveDay);
-        fiveDay.textContent = nextDay;
-        
-        var nextTemp = data.daily[i].temp.day
-        console.log(nextTemp);
-        var fiveTemp = document.querySelector('.temp'+i)
-        console.log(fiveTemp)
-        fiveTemp.textContent = nextTemp
-        
-        var nextWind = data.daily[i].wind_speed
-        console.log(nextWind)
-        var fiveWind = document.querySelector('.wind'+i)
-        console.log(fiveWind)
-        fiveWind.textContent = nextWind
-        
-        var nextHumidity = data.daily[i].humidity
-        console.log(nextHumidity)
-        var fiveHumidity = document.querySelector('.humidity'+i)
-        console.log(fiveHumidity)
-        fiveHumidity.textContent = nextHumidity
-        /*var fiveIcon = document.getElementById('.icon'+i)        
-        `<img src="http://openweathermap.org/img/wn/${futureWeatherIcon}@2x.png" alt="weather icon" style="width:30px;height:30px;">`*/
-    }
+        tempObject.location = 'Seattle';
+        tempObject.date = '01/20/22'
+       searchHistory.push(tempObject);
+
+        localStorage.setItem("weather", JSON.stringify(searchHistory))
+      }
+  })
+  })
 })}
 
-function saveSearch(){
-    console.log(city)
-    city = city.toUpperCase();
-    searchHistory.push(city);
-    localStorage.setItem('saved searches', JSON.stringify(searchHistory))
-}
-
-function getHistory() {
-    var clear = document.getElementById('buttons');
-    while (clear.firstChild) {
-      clear.removeChild(clear.firstChild);
-    }
-    searchHistory = JSON.parse(localStorage.getItem('saved searches'));
-    if (searchHistory !== null) {
-      for (i = 0; i < searchHistory.length; i++) {
-        citiesSearched.append(
-          `<button type="button" class="button btn btn-block btn-sm btn-primary">${searchHistory[i]}</button>`
-        );
-      }
-    } else {
-      searchHistory = [];
-    }}
-
-searchBtn.addEventListener('click', getLatLong())
-citiesSearched.on('click', '.button', function () {
-    $(this).html().innerhtml = document.getElementById('searchBar');
-    console.log($(this).html())
-    getLatLong();
-  });
 
 
-    
     
 
