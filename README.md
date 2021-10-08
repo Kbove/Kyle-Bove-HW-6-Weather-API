@@ -7,6 +7,9 @@ As things open back up in the world, people making travel plans need a way to qu
 This weather dashboard pulls from an open weather API all sorts of weather data. That data is then displayed, showing current conditions and 5/day future conditions. The side of the page shows your search history and you will be able to click into one of the cities listed and immediately display the conditions.
 
 #### Link
+https://kbove.github.io/Kyle-Bove-HW-6-Weather-API/
 
 ##### Screenshot
+![weather shot](https://user-images.githubusercontent.com/89953218/135971225-51479c0a-c88e-48b3-933c-963f51637a23.JPG)
+
 
