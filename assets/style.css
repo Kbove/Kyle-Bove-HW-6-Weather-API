@@ -6,8 +6,10 @@ header {
     border-bottom: 1px solid black;
     color: white;
     text-align: center;
-    background-color:crimson;
+    background-color:black;
     font-weight: bold;
+    background-image: linear-gradient(rgb(0, 44, 0), green);
+    margin-bottom: 40px;
 }
 
 main {
@@ -46,9 +48,18 @@ h2 {
     margin-bottom: 10px;
     margin-left: -1px;
     margin-right: -1px;
-
+    background-color: green;
 }
 
+#deleteBtn {
+    background-color:white;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: -1px;
+    margin-right: -1px;
+    background-color: crimson;
+}
 
 .button {
     margin: 5px;
@@ -61,25 +72,16 @@ h2 {
 
 }
 
-.button:hover {
-    background-color: crimson;
-}
-
-.city-buttons {
-    flex-direction:column;
-}
-
-.five-day-forecast-container {
+#five-day-forecast-container {
     display: flex;
 }
 
 .current-city-container {
-    border:1px solid white;
+    padding-left: 10px;
     padding-bottom: 20px;
     margin-bottom: 20px;
     margin-top: 10px;
-    background-color: crimson;
-
+    background-image: linear-gradient(rgb(0, 44, 0), green);
 }
 
 .day-card {
@@ -87,7 +89,7 @@ h2 {
     border: 1px solid black;
     margin: 5px;
     list-style-type: none;
-    background-color: crimson;
+    background-image: linear-gradient(rgb(0, 44, 0), green);
     color: white;
     font-size: medium;
 

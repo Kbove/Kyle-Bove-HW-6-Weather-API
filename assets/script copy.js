@@ -34,7 +34,7 @@ var longitude;
 
 var storedWeather = JSON.parse(localStorage.getItem("weather")) || [];
 
-//getHistory();
+getHistory();
 
 function validCity() {
     userInput = document.getElementById('searchBar').value;
